@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code de Rastreabilidade - Café Os Batutinhas</title>
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #4CAF50;
+            --primary-dark: #1B5E20;
+            --secondary: #795548;
+            --accent: #FFC107;
+            --light: #F5F5F5;
+            --dark: #212121;
+            --gray: #757575;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        section {
+            margin: 3rem 0;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .qr-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .qr-container {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .qr-code {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 1.5rem;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            border: 2px dashed #ccc;
+        }
+        
+        .info-panel {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .info-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .sustainability-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .metric {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .verification-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .qr-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .sustainability-metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">OS BATUTINHAS</div>
+            <p class="tagline">QR Code de Rastreabilidade - Exemplo Prático BCoT</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section>
+            <h1>QR Code de Rastreabilidade do Café</h1>
+            <p>Este é um exemplo de como um QR Code na embalagem do café pode fornecer informações completas de rastreabilidade usando a tecnologia BCoT (Blockchain of Things).</p>
+        </section>
+        
+        <section class="qr-section">
+            <div class="qr-container">
+                <h2>Escaneie o QR Code</h2>
+                <div class="qr-code">
+                    <!-- QR Code simulado -->
+                    <div style="text-align: center;">
+                        <div style="font-size: 4rem;">📱</div>
+                        <div style="font-size: 0.8rem; margin-top: 0.5rem;">QR Code Simulado</div>
+                    </div>
+                </div>
+                <p>Use a câmera do seu smartphone para escanear este código e acessar todas as informações de rastreabilidade deste café.</p>
+            </div>
+            
+            <div class="info-panel">
+                <h2>Informações de Rastreabilidade</h2>
+                <p>Dados coletados automaticamente via sensores IoT e registrados na Blockchain:</p>
+                
+                <div class="info-item">
+                    <span class="info-label">Produto</span>
+                    Café Especial - Bourbon Amarelo
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Lote</span>
+                    #BR-MG-2023-BA-047
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Origem</span>
+                    Fazenda Esperança, Carmo de Minas - MG
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Altitude</span>
+                    1.150 - 1.350 metros
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Colheita</span>
+                    Manual, entre Maio e Agosto de 2023
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Certificação</span>
+                    <div class="verification-badge">Verificado na Blockchain</div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Linha do Tempo Completa do Produto</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Março 2023</div>
+                    <h3>Floração</h3>
+                    <p>Período de floração monitorado por sensores de umidade e temperatura. Dados registrados na Blockchain em 15/03/2023.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Maio 2023</div>
+                    <h3>Início da Colheita</h3>
+                    <p>Colheita manual seletiva iniciada. Sensores IoT registraram temperatura média de 18°C e umidade de 65%.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Junho 2023</div>
+                    <h3>Processamento</h3>
+                    <p>Processamento por via úmida. Análise de qualidade: 92 pontos SCAA. Dados registrados em 22/06/2023.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Julho 2023</div>
+                    <h3>Secagem e Repouso</h3>
+                    <p>Secagem em terreiro e repouso de 30 dias. Monitoramento contínuo de umidade por sensores IoT.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Agosto 2023</div>
+                    <h3>Beneficiamento</h3>
+                    <p>Processo de beneficiamento final. Classificação como Grão Tipo 2. Registro na Blockchain em 10/08/2023.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Setembro 2023</div>
+                    <h3>Torra</h3>
+                    <p>Torra média (City Roast) realizada em 15/09/2023. Perfil sensorial: acidez cítrica, corpo sedoso, notas de chocolate.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Outubro 2023</div>
+                    <h3>Embalagem</h3>
+                    <p>Embalado a vácuo em 05/10/2023. Lote #BR-MG-2023-BA-047. QR Code aplicado para rastreabilidade.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Indicadores de Sustentabilidade</h2>
+            <div class="card">
+                <p>Métricas coletadas automaticamente através de sensores IoT e wearables durante o ciclo produtivo:</p>
+                
+                <div class="sustainability-metrics">
+                    <div class="metric">
+                        <div class="metric-value">98%</div>
+                        <div class="metric-label">Uso Racional de Água</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div class="metric-value">0</div>
+                        <div class="metric-label">Incidentes Trabalhistas</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div class="metric-value">100%</div>
+                        <div class="metric-label">Respeito aos Horários</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div class="metric-value">85%</div>
+                        <div class="metric-label">Energia Renovável</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Dados Climáticos Registrados</h2>
+            <div class="card">
+                <div class="info-item">
+                    <span class="info-label">Temperatura Média Anual</span>
+                    19.5°C (variação: 12°C - 26°C)
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Precipitação Acumulada</span>
+                    1.450 mm (dentro da média histórica)
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Índice de Insolação</span>
+                    2.150 horas/ano (ideal para café especial)
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Umidade Relativa do Ar</span>
+                    70% (variação: 55% - 85%)
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Verificação de Autenticidade</h2>
+            <div class="card">
+                <p>Este produto foi verificado e registrado na Blockchain. Todas as informações são imutáveis e auditáveis.</p>
+                
+                <div class="info-item">
+                    <span class="info-label">Hash do Registro</span>
+                    <code>1A3F5B7C9D2E4F6A8B0C1D3E5F7A9B2C4D6</code>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Bloco</span>
+                    #4,829,117 (registrado em 05/10/2023 às 14:23:17)
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Rede Blockchain</span>
+                    Hyperledger Fabric - Rede Café do Brasil
+                </div>
+                
+                <div class="verification-badge" style="background: #4CAF50;">
+                    ✅ Produto Autêntico Verificado
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Exemplo de QR Code de rastreabilidade desenvolvido pelo grupo "Os Batutinhas"</p>
+            <p>Tecnologia BCoT (Blockchain of Things) - Garantindo transparência e confiança na cadeia do café</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simulação de dados que seriam codificados no QR Code
+        const qrCodeData = {
+            product: "Café Especial - Bourbon Amarelo",
+            lot: "#BR-MG-2023-BA-047",
+            origin: {
+                farm: "Fazenda Esperança",
+                region: "Carmo de Minas - MG",
+                altitude: "1.150 - 1.350 metros"
+            },
+            harvest: {
+                period: "Maio - Agosto 2023",
+                method: "Manual seletiva"
+            },
+            processing: {
+                method: "Via úmida",
+                quality: "92 pontos SCAA"
+            },
+            roast: {
+                date: "15/09/2023",
+                profile: "City Roast (média)"
+            },
+            packaging: {
+                date: "05/10/2023",
+                method: "Vácuo"
+            },
+            sustainability: {
+                waterUsage: "98%",
+                renewableEnergy: "85%",
+                laborIncidents: "0"
+            },
+            blockchain: {
+                hash: "1A3F5B7C9D2E4F6A8B0C1D3E5F7A9B2C4D6",
+                block: "#4,829,117",
+                network: "Hyperledger Fabric - Rede Café do Brasil"
+            },
+            verification: {
+                status: "Autêntico",
+                timestamp: "2023-10-05T14:23:17Z"
+            }
+        };
+
+        // Em um caso real, estes dados seriam codificados em um QR Code
+        console.log("Dados que seriam codificados no QR Code:", qrCodeData);
+        
+        // Simulação de como o QR Code redirecionaria para uma página de verificação
+        document.querySelector('.qr-code').addEventListener('click', function() {
+            alert('Em um cenário real, escanear este QR Code redirecionaria para uma página com todas estas informações de rastreabilidade.');
+        });
+    </script>
+</body>
+</html>
