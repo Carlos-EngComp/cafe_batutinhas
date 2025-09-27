@@ -6,14 +6,15 @@
     <title>QR Code de Rastreabilidade - Café Os Batutinhas</title>
     <style>
         :root {
-            --primary: #2E7D32;
-            --primary-light: #4CAF50;
-            --primary-dark: #1B5E20;
-            --secondary: #795548;
-            --accent: #FFC107;
-            --light: #F5F5F5;
-            --dark: #212121;
-            --gray: #757575;
+            --primary: #5D4037;
+            --primary-light: #8D6E63;
+            --primary-dark: #3E2723;
+            --secondary: #6B7B3A;
+            --accent: #D4AF37;
+            --light: #F5E6D3;
+            --dark: #3E2723;
+            --gray: #8D6E63;
+            --cream: #FFF8E1;
         }
         
         * {
@@ -21,10 +22,11 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
         }
         
         body {
-            background-color: var(--light);
+            background: linear-gradient(135deg, var(--cream) 0%, var(--light) 100%);
             color: var(--dark);
             line-height: 1.6;
         }
@@ -38,9 +40,26 @@
         
         header {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            color: white;
-            padding: 2rem 0;
+            color: var(--cream);
+            padding: 1rem 0;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(62, 39, 35, 0.3);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .logo-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--cream);
+            padding: 8px;
         }
         
         .logo {
@@ -88,10 +107,17 @@
         
         .qr-container {
             text-align: center;
-            background: white;
+            background: var(--cream);
             padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(62, 39, 35, 0.15);
+            border: 2px solid var(--primary-light);
+            transform: translateY(0);
+        }
+        
+        .qr-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(62, 39, 35, 0.25);
         }
         
         .qr-code {
@@ -107,16 +133,17 @@
         }
         
         .info-panel {
-            background: white;
+            background: var(--cream);
             padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(62, 39, 35, 0.15);
+            border: 2px solid var(--primary-light);
         }
         
         .info-item {
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--primary-light);
         }
         
         .info-item:last-child {
@@ -176,10 +203,11 @@
         }
         
         .metric {
-            background: #f9f9f9;
+            background: var(--cream);
             padding: 1rem;
-            border-radius: 4px;
+            border-radius: 8px;
             text-align: center;
+            border: 1px solid var(--primary-light);
         }
         
         .metric-value {
@@ -195,20 +223,22 @@
         
         .verification-badge {
             display: inline-block;
-            background: var(--primary);
-            color: white;
+            background: var(--secondary);
+            color: var(--cream);
             padding: 0.5rem 1rem;
-            border-radius: 4px;
+            border-radius: 20px;
             font-size: 0.9rem;
             margin-top: 0.5rem;
+            font-weight: 600;
         }
         
         .card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: var(--cream);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(62, 39, 35, 0.15);
             padding: 1.5rem;
             margin-bottom: 1.5rem;
+            border: 2px solid var(--primary-light);
         }
         
         footer {
@@ -229,19 +259,142 @@
             }
         }
     </style>
+    
+    <style>
+        /* Transições e Hover Effects */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        header {
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        section {
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+        
+        section:nth-child(1) { animation-delay: 0.2s; }
+        section:nth-child(2) { animation-delay: 0.4s; }
+        section:nth-child(3) { animation-delay: 0.6s; }
+        section:nth-child(4) { animation-delay: 0.8s; }
+        section:nth-child(5) { animation-delay: 1s; }
+        section:nth-child(6) { animation-delay: 1.2s; }
+        
+        .timeline-item {
+            animation: fadeInLeft 0.6s ease;
+            animation-fill-mode: both;
+        }
+        
+        .timeline-item:nth-child(1) { animation-delay: 0.8s; }
+        .timeline-item:nth-child(2) { animation-delay: 1s; }
+        .timeline-item:nth-child(3) { animation-delay: 1.2s; }
+        .timeline-item:nth-child(4) { animation-delay: 1.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 1.6s; }
+        .timeline-item:nth-child(6) { animation-delay: 1.8s; }
+        .timeline-item:nth-child(7) { animation-delay: 2s; }
+        
+        .metric {
+            animation: fadeInUp 0.6s ease;
+            animation-fill-mode: both;
+        }
+        
+        .metric:nth-child(1) { animation-delay: 1.2s; }
+        .metric:nth-child(2) { animation-delay: 1.4s; }
+        .metric:nth-child(3) { animation-delay: 1.6s; }
+        .metric:nth-child(4) { animation-delay: 1.8s; }
+        
+        .qr-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(62, 39, 35, 0.25);
+        }
+        
+        .info-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(62, 39, 35, 0.25);
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(62, 39, 35, 0.2);
+        }
+        
+        .metric:hover {
+            transform: scale(1.05);
+            border-color: var(--secondary);
+        }
+        
+        .logo-image:hover {
+            transform: rotate(5deg) scale(1.1);
+        }
+        
+        .qr-code:hover {
+            transform: scale(1.02);
+        }
+        
+        .timeline-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .verification-badge:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <div class="logo">OS BATUTINHAS</div>
+            <div class="logo-container">
+                <img src="Logo RastroBão com Café e Agricultor.png" alt="RastroBão Logo" class="logo-image">
+                <div class="logo">OS BATUTINHAS</div>
+            </div>
             <p class="tagline">QR Code de Rastreabilidade - Exemplo Prático BCoT</p>
         </div>
     </header>
     
     <div class="container">
-               
+        <section>
+            <h1>QR Code de Rastreabilidade do Café</h1>
+            <p>Este é um exemplo de como um QR Code na embalagem do café pode fornecer informações completas de rastreabilidade usando a tecnologia BCoT (Blockchain of Things).</p>
+        </section>
+        
         <section class="qr-section">
-                       
+            <div class="qr-container">
+    <h2>Escaneie o QR Code</h2>
+    <div class="qr-code">
+        <svg shape-rendering="geometricPrecision" xmlns="http://www.w3.org/2000/svg" class="qrcode" viewBox="0 0 29 29" preserveAspectRatio="xMidYMid" width="256" height="256">
+            <rect fill="#FFFFFF" width="100%" height="100%"/>
+            <path class="modules" fill="#000000" d="M11 2 m0 0h1v1h-1z M16 2 m0 0h1v1h-1z M10 3 m0 0h1v1h-1z M12 3 m0 0h1v1h-1z M16 3 m0 0h1v1h-1z M17 3 m0 0h1v1h-1z M18 3 m0 0h1v1h-1z M11 4 m0 0h1v1h-1z M13 4 m0 0h1v1h-1z M14 4 m0 0h1v1h-1z M16 4 m0 0h1v1h-1z M17 4 m0 0h1v1h-1z M11 5 m0 0h1v1h-1z M12 5 m0 0h1v1h-1z M13 5 m0 0h1v1h-1z M16 5 m0 0h1v1h-1z M10 6 m0 0h1v1h-1z M14 6 m0 0h1v1h-1z M15 6 m0 0h1v1h-1z M16 6 m0 0h1v1h-1z M17 6 m0 0h1v1h-1z M18 6 m0 0h1v1h-1z M11 7 m0 0h1v1h-1z M13 7 m0 0h1v1h-1z M16 7 m0 0h1v1h-1z M17 7 m0 0h1v1h-1z M18 7 m0 0h1v1h-1z M10 8 m0 0h1v1h-1z M12 8 m0 0h1v1h-1z M14 8 m0 0h1v1h-1z M16 8 m0 0h1v1h-1z M18 8 m0 0h1v1h-1z M12 9 m0 0h1v1h-1z M13 9 m0 0h1v1h-1z M15 9 m0 0h1v1h-1z M18 9 m0 0h1v1h-1z M2 10 m0 0h1v1h-1z M4 10 m0 0h1v1h-1z M6 10 m0 0h1v1h-1z M8 10 m0 0h1v1h-1z M11 10 m0 0h1v1h-1z M12 10 m0 0h1v1h-1z M13 10 m0 0h1v1h-1z M14 10 m0 0h1v1h-1z M15 10 m0 0h1v1h-1z M18 10 m0 0h1v1h-1z M22 10 m0 0h1v1h-1z M25 10 m0 0h1v1h-1z M2 11 m0 0h1v1h-1z M3 11 m0 0h1v1h-1z M5 11 m0 0h1v1h-1z M6 11 m0 0h1v1h-1z M9 11 m0 0h1v1h-1z M11 11 m0 0h1v1h-1z M12 11 m0 0h1v1h-1z M14 11 m0 0h1v1h-1z M15 11 m0 0h1v1h-1z M18 11 m0 0h1v1h-1z M20 11 m0 0h1v1h-1z M26 11 m0 0h1v1h-1z M3 12 m0 0h1v1h-1z M5 12 m0 0h1v1h-1z M7 12 m0 0h1v1h-1z M8 12 m0 0h1v1h-1z M11 12 m0 0h1v1h-1z M12 12 m0 0h1v1h-1z M13 12 m0 0h1v1h-1z M15 12 m0 0h1v1h-1z M16 12 m0 0h1v1h-1z M18 12 m0 0h1v1h-1z M20 12 m0 0h1v1h-1z M21 12 m0 0h1v1h-1z M22 12 m0 0h1v1h-1z M24 12 m0 0h1v1h-1z M25 12 m0 0h1v1h-1z M26 12 m0 0h1v1h-1z M3 13 m0 0h1v1h-1z M4 13 m0 0h1v1h-1z M5 13 m0 0h1v1h-1z M7 13 m0 0h1v1h-1z M9 13 m0 0h1v1h-1z M10 13 m0 0h1v1h-1z M11 13 m0 0h1v1h-1z M12 13 m0 0h1v1h-1z M15 13 m0 0h1v1h-1z M16 13 m0 0h1v1h-1z M19 13 m0 0h1v1h-1z M20 13 m0 0h1v1h-1z M21 13 m0 0h1v1h-1z M25 13 m0 0h1v1h-1z M2 14 m0 0h1v1h-1z M3 14 m0 0h1v1h-1z M5 14 m0 0h1v1h-1z M8 14 m0 0h1v1h-1z M9 14 m0 0h1v1h-1z M11 14 m0 0h1v1h-1z M13 14 m0 0h1v1h-1z M14 14 m0 0h1v1h-1z M15 14 m0 0h1v1h-1z M19 14 m0 0h1v1h-1z M20 14 m0 0h1v1h-1z M21 14 m0 0h1v1h-1z M23 14 m0 0h1v1h-1z M25 14 m0 0h1v1h-1z M26 14 m0 0h1v1h-1z M4 15 m0 0h1v1h-1z M7 15 m0 0h1v1h-1z M9 15 m0 0h1v1h-1z M10 15 m0 0h1v1h-1z M11 15 m0 0h1v1h-1z M13 15 m0 0h1v1h-1z M14 15 m0 0h1v1h-1z M15 15 m0 0h1v1h-1z M16 15 m0 0h1v1h-1z M18 15 m0 0h1v1h-1z M20 15 m0 0h1v1h-1z M23 15 m0 0h1v1h-1z M26 15 m0 0h1v1h-1z M2 16 m0 0h1v1h-1z M4 16 m0 0h1v1h-1z M7 16 m0 0h1v1h-1z M8 16 m0 0h1v1h-1z M9 16 m0 0h1v1h-1z M10 16 m0 0h1v1h-1z M12 16 m0 0h1v1h-1z M13 16 m0 0h1v1h-1z M14 16 m0 0h1v1h-1z M15 16 m0 0h1v1h-1z M16 16 m0 0h1v1h-1z M19 16 m0 0h1v1h-1z M20 16 m0 0h1v1h-1z M21 16 m0 0h1v1h-1z M24 16 m0 0h1v1h-1z M25 16 m0 0h1v1h-1z M26 16 m0 0h1v1h-1z M3 17 m0 0h1v1h-1z M5 17 m0 0h1v1h-1z M9 17 m0 0h1v1h-1z M10 17 m0 0h1v1h-1z M12 17 m0 0h1v1h-1z M14 17 m0 0h1v1h-1z M15 17 m0 0h1v1h-1z M18 17 m0 0h1v1h-1z M19 17 m0 0h1v1h-1z M22 17 m0 0h1v1h-1z M25 17 m0 0h1v1h-1z M2 18 m0 0h1v1h-1z M6 18 m0 0h1v1h-1z M8 18 m0 0h1v1h-1z M9 18 m0 0h1v1h-1z M10 18 m0 0h1v1h-1z M11 18 m0 0h1v1h-1z M12 18 m0 0h1v1h-1z M13 18 m0 0h1v1h-1z M15 18 m0 0h1v1h-1z M17 18 m0 0h1v1h-1z M18 18 m0 0h1v1h-1z M19 18 m0 0h1v1h-1z M20 18 m0 0h1v1h-1z M21 18 m0 0h1v1h-1z M22 18 m0 0h1v1h-1z M23 18 m0 0h1v1h-1z M10 19 m0 0h1v1h-1z M13 19 m0 0h1v1h-1z M17 19 m0 0h1v1h-1z M18 19 m0 0h1v1h-1z M22 19 m0 0h1v1h-1z M23 19 m0 0h1v1h-1z M25 19 m0 0h1v1h-1z M26 19 m0 0h1v1h-1z M12 20 m0 0h1v1h-1z M15 20 m0 0h1v1h-1z M16 20 m0 0h1v1h-1z M17 20 m0 0h1v1h-1z M18 20 m0 0h1v1h-1z M20 20 m0 0h1v1h-1z M22 20 m0 0h1v1h-1z M23 20 m0 0h1v1h-1z M25 20 m0 0h1v1h-1z M26 20 m0 0h1v1h-1z M11 21 m0 0h1v1h-1z M13 21 m0 0h1v1h-1z M15 21 m0 0h1v1h-1z M18 21 m0 0h1v1h-1z M22 21 m0 0h1v1h-1z M23 21 m0 0h1v1h-1z M26 21 m0 0h1v1h-1z M10 22 m0 0h1v1h-1z M11 22 m0 0h1v1h-1z M12 22 m0 0h1v1h-1z M14 22 m0 0h1v1h-1z M18 22 m0 0h1v1h-1z M19 22 m0 0h1v1h-1z M20 22 m0 0h1v1h-1z M21 22 m0 0h1v1h-1z M22 22 m0 0h1v1h-1z M23 22 m0 0h1v1h-1z M25 22 m0 0h1v1h-1z M26 22 m0 0h1v1h-1z M11 23 m0 0h1v1h-1z M12 23 m0 0h1v1h-1z M13 23 m0 0h1v1h-1z M14 23 m0 0h1v1h-1z M15 23 m0 0h1v1h-1z M17 23 m0 0h1v1h-1z M18 23 m0 0h1v1h-1z M21 23 m0 0h1v1h-1z M22 23 m0 0h1v1h-1z M23 23 m0 0h1v1h-1z M24 23 m0 0h1v1h-1z M10 24 m0 0h1v1h-1z M12 24 m0 0h1v1h-1z M13 24 m0 0h1v1h-1z M14 24 m0 0h1v1h-1z M15 24 m0 0h1v1h-1z M16 24 m0 0h1v1h-1z M17 24 m0 0h1v1h-1z M22 24 m0 0h1v1h-1z M26 24 m0 0h1v1h-1z M14 25 m0 0h1v1h-1z M15 25 m0 0h1v1h-1z M16 25 m0 0h1v1h-1z M17 25 m0 0h1v1h-1z M18 25 m0 0h1v1h-1z M20 25 m0 0h1v1h-1z M22 25 m0 0h1v1h-1z M23 25 m0 0h1v1h-1z M25 25 m0 0h1v1h-1z M10 26 m0 0h1v1h-1z M13 26 m0 0h1v1h-1z M14 26 m0 0h1v1h-1z M16 26 m0 0h1v1h-1z M18 26 m0 0h1v1h-1z M19 26 m0 0h1v1h-1z M21 26 m0 0h1v1h-1z M25 26 m0 0h1v1h-1z M26 26 m0 0h1v1h-1z"/>
+            <path class="outer" fill="#000000" d="M2 2 m0 0h7.02v7.02h-7.02zm1.17 1.17v4.68h4.68v-4.68z"/>
+            <path class="inner" fill="#000000" d="M2 2 m2 2h3v3h-3z"/>
+            <path class="outer" fill="#000000" d="M2 20 m0 0h7.02v7.02h-7.02zm1.17 1.17v4.68h4.68v-4.68z"/>
+            <path class="inner" fill="#000000" d="M2 20 m2 2h3v3h-3z"/>
+            <path class="outer" fill="#000000" d="M20 2 m0 0h7.02v7.02h-7.02zm1.17 1.17v4.68h4.68v-4.68z"/>
+            <path class="inner" fill="#000000" d="M20 2 m2 2h3v3h-3z"/>
+        </svg>
+    </div>
+    <p>Use a câmera do seu smartphone para escanear este código e acessar todas as informações de rastreabilidade deste café.</p>
+</div>
+            
             <div class="info-panel">
                 <h2>Informações de Rastreabilidade</h2>
                 <p>Dados coletados automaticamente via sensores IoT e registrados na Blockchain:</p>
@@ -399,7 +552,7 @@
                     Hyperledger Fabric - Rede Café do Brasil
                 </div>
                 
-                <div class="verification-badge" style="background: #4CAF50;">
+                <div class="verification-badge" style="background: var(--secondary);">
                     ✅ Produto Autêntico Verificado
                 </div>
             </div>
